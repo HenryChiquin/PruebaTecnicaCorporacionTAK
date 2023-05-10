@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PruebaTecnicaTakDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="COLABORADOR">
+          <Key>
+            <PropertyRef Name="IdColaborador" />
+          </Key>
+          <Property Name="IdColaborador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="datetime" Nullable="false" />
+          <Property Name="EstadoCivil" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="GradoAcademico" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Direccion" Type="varchar(max)" />
+        </EntityType>
+        <Function Name="SP_ACTUALIZAR_COLABORADOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idColaborador" Type="int" Mode="In" />
+          <Parameter Name="nombres" Type="varchar" Mode="In" />
+          <Parameter Name="apellidos" Type="varchar" Mode="In" />
+          <Parameter Name="fechaNacimiento" Type="datetime" Mode="In" />
+          <Parameter Name="estadoCivil" Type="varchar" Mode="In" />
+          <Parameter Name="gradoAcademico" Type="varchar" Mode="In" />
+          <Parameter Name="direccion" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_COLABORADOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idColaborador" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_INSERTAR_COLABORADOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombres" Type="varchar" Mode="In" />
+          <Parameter Name="apellidos" Type="varchar" Mode="In" />
+          <Parameter Name="fechaNacimiento" Type="datetime" Mode="In" />
+          <Parameter Name="estadoCivil" Type="varchar" Mode="In" />
+          <Parameter Name="gradoAcademico" Type="varchar" Mode="In" />
+          <Parameter Name="direccion" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_LISTA_COLABORADOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="PruebaTecnicaTakDBModelStoreContainer">
+          <EntitySet Name="COLABORADOR" EntityType="Self.COLABORADOR" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PruebaTecnicaTakDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PruebaTecnicaTakDBEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="SP_ELIMINAR_COLABORADOR">
+          <Parameter Name="idColaborador" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_INSERTAR_COLABORADOR">
+            <Parameter Name="nombres" Mode="In" Type="String" />
+            <Parameter Name="apellidos" Mode="In" Type="String" />
+            <Parameter Name="fechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="estadoCivil" Mode="In" Type="String" />
+            <Parameter Name="gradoAcademico" Mode="In" Type="String" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="COLABORADOR" EntityType="PruebaTecnicaTakDBModel.COLABORADOR" />
+          <FunctionImport Name="SP_LISTA_COLABORADOR" ReturnType="Collection(PruebaTecnicaTakDBModel.SP_LISTA_COLABORADOR_Result1)" />
+          <FunctionImport Name="SP_ACTUALIZAR_COLABORADOR">
+            <Parameter Name="idColaborador" Mode="In" Type="Int32" />
+            <Parameter Name="nombres" Mode="In" Type="String" />
+            <Parameter Name="apellidos" Mode="In" Type="String" />
+            <Parameter Name="fechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="estadoCivil" Mode="In" Type="String" />
+            <Parameter Name="gradoAcademico" Mode="In" Type="String" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SP_LISTA_COLABORADOR_Result">
+          <Property Type="Int32" Name="IdColaborador" Nullable="false" />
+          <Property Type="String" Name="Nombres" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Apellidos" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="false" Precision="23" />
+          <Property Type="String" Name="EstadoCivil" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="GradoAcademico" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Direccion" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="COLABORADOR">
+          <Key>
+            <PropertyRef Name="IdColaborador" />
+          </Key>
+          <Property Name="IdColaborador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Apellidos" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EstadoCivil" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="GradoAcademico" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="SP_LISTA_COLABORADOR1_Result">
+          <Property Type="Int32" Name="IdColaborador" Nullable="false" />
+          <Property Type="String" Name="Nombres" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Apellidos" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="false" Precision="23" />
+          <Property Type="String" Name="EstadoCivil" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="GradoAcademico" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Direccion" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_LISTA_COLABORADOR_Result1">
+          <Property Type="Int32" Name="IdColaborador" Nullable="false" />
+          <Property Type="String" Name="Nombres" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Apellidos" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="false" Precision="23" />
+          <Property Type="String" Name="EstadoCivil" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="GradoAcademico" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Direccion" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PruebaTecnicaTakDBModelStoreContainer" CdmEntityContainer="PruebaTecnicaTakDBEntities">
+          <FunctionImportMapping FunctionImportName="SP_ELIMINAR_COLABORADOR" FunctionName="PruebaTecnicaTakDBModel.Store.SP_ELIMINAR_COLABORADOR" />
+          <FunctionImportMapping FunctionImportName="SP_INSERTAR_COLABORADOR" FunctionName="PruebaTecnicaTakDBModel.Store.SP_INSERTAR_COLABORADOR" />
+          <EntitySetMapping Name="COLABORADOR">
+            <EntityTypeMapping TypeName="PruebaTecnicaTakDBModel.COLABORADOR">
+              <MappingFragment StoreEntitySet="COLABORADOR">
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="GradoAcademico" ColumnName="GradoAcademico" />
+                <ScalarProperty Name="EstadoCivil" ColumnName="EstadoCivil" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="IdColaborador" ColumnName="IdColaborador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_LISTA_COLABORADOR" FunctionName="PruebaTecnicaTakDBModel.Store.SP_LISTA_COLABORADOR">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PruebaTecnicaTakDBModel.SP_LISTA_COLABORADOR_Result1">
+                <ScalarProperty Name="IdColaborador" ColumnName="IdColaborador" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="EstadoCivil" ColumnName="EstadoCivil" />
+                <ScalarProperty Name="GradoAcademico" ColumnName="GradoAcademico" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ACTUALIZAR_COLABORADOR" FunctionName="PruebaTecnicaTakDBModel.Store.SP_ACTUALIZAR_COLABORADOR" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

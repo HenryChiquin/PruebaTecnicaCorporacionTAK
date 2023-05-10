@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "COLABORADORES";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="col-12">
+    
+    <a href="@Url.Content("~/Colaborador/Add")" class="btn btn-success">
+        +  Nuevo
+    </a>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table" id="tColaborador">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Estado Civil</th>
+                    <th>Grado Académico</th>
+                    <th>Dirección</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyColab">
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script>
+    getAllColaborador();
+    function getAllColaborador() {
+        var url = "@Url.Content("~/Colaborador/getAllColaborador")";
+        fetch(url).then(function (response) {
+            return response.json();
+        }).then(function (Data) {
+            document.getElementById("tColaborador").innerHTML = "";
+            for (i = 0; i < Data.length; i++) {
+                let Tabla = document.getElementById("tColaborador");
+                var TR = document.createElement("tr");
+
+                let tabButtonDelete = document.createElement("button");
+                let tabButtonEdit = document.createElement("button");
+
+
+                tabButtonDelete.innerHTML = "Eliminar";
+                tabButtonEdit.innerHTML = "Editar";
+
+                tabButtonDelete.classList.add('btn');
+                tabButtonDelete.classList.add('btn-danger');
+                tabButtonDelete.classList.add('m-1');
+
+                tabButtonEdit.classList.add('btn');
+                tabButtonEdit.classList.add('btn-outline-primary');
+                tabButtonEdit.classList.add('m-1');
+
+                tabButtonEdit.cIdColab = Data[i].IdColaborador;
+                tabButtonEdit.addEventListener("click", function (mibutton) {
+                    mibutton.preventDefault();
+
+                    jsEditar(mibutton.target.cIdColab);
+                    jswt(mibutton.target.cIdColab);
+                });
+
+                tabButtonDelete.cIdColab = Data[i].IdColaborador;
+                tabButtonDelete.addEventListener("click", function (mibutton) {
+                    mibutton.preventDefault();
+                    jsEliminar(mibutton.target.cIdColab);
+                });
+
+
+                let TdId = document.createElement("td");
+                let TdNombre = document.createElement("td");
+                let TdFechaNac = document.createElement("td");
+                let TdEstadoCiv = document.createElement("td");
+                let TdGradoAc = document.createElement("td");
+                let TdDireccion = document.createElement("td");
+
+
+                let TDBtnEdit = document.createElement("td");
+                let TDBtnDelet = document.createElement("td");
+                TDBtnEdit = tabButtonEdit;
+                TDBtnDelet = tabButtonDelete;
+
+                TR.appendChild(TdId);
+                TR.appendChild(TdNombre);
+                TR.appendChild(TdFechaNac);
+                TR.appendChild(TdEstadoCiv);
+                TR.appendChild(TdGradoAc);
+                TR.appendChild(TdDireccion);
+                TR.appendChild(TDBtnDelet);
+                TR.appendChild(TDBtnEdit);
+
+
+
+                TdId.innerHTML = Data[i].IdColaborador;
+                TdNombre.innerHTML = Data[i].Nombres + " " + Data[i].Apellidos;
+                TdFechaNac.innerHTML = Data[i].FechaNacimiento;
+                TdEstadoCiv.innerHTML = Data[i].EstadoCivil;
+                TdGradoAc.innerHTML = Data[i].GradoAcademico;
+                TdDireccion.innerHTML = Data[i].Direccion;
+
+                Tabla.appendChild(TR);
+            }
+        })
+    }
+
+    function jsEliminar(Id)
+    {
+        urld = "@Url.Content("~/Colaborador/Delete")" + "/" + Id;
+        $.post(urld, function (data) {
+            if (data == "1")
+            {
+                document.location.href = "@Url.Content("~/Colaborador/Index")";
+            }
+            else
+            {
+                alert("Ocurrió un error!!");
+            }
+
+        })
+    }
+
+
+
+    function jsEditar(Id) {
+        document.location.href = "@Url.Content("~/Colaborador/Update")" + "/" + Id;
+    }
+
+    function jswt(Id)
+    {
+        urld = "@Url.Content("~/Colaborador/generateWebToken")" + "/" + Id;
+        $.post(urld, function (data) {
+            if (data == "1")
+            {
+                console.log(data);
+            }
+            else
+            {
+                alert("Ocurrió un error!!");
+            }
+
+        })
+    }
+</script>

@@ -1,0 +1,74 @@
+﻿@model PruebaTecnicaCorporacionTAK.Models.ViewModel.ColaboradorViewModel
+@{
+    ViewBag.Title = "Registrar nuevo colaborador";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Add", "Colaborador", FormMethod.Post, new { role = "form" }))
+{
+    <div class="row g-2">
+        <div class="col-md-6   ">
+            @Html.LabelFor(d => d.Nombres, new { @class = "form-label" })
+
+            @Html.TextBoxFor(d => d.Nombres, new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.Nombres, "", new { @class = "text-danger" })<br />
+        </div>
+        <div class="col-md-4 row">
+            @Html.LabelFor(d => d.Apellidos, new { @class = "form-label" })
+
+            @Html.TextBoxFor(d => d.Apellidos, new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.Apellidos, "", new { @class = "text-danger" })<br />
+        </div>
+
+
+        <div class="col-md-6 ">
+            @Html.LabelFor(d => d.FechaNacimiento, new { @class = "form-label" })<br />
+
+            @Html.EditorFor(d => d.FechaNacimiento, new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.FechaNacimiento, "", new { @class = "text-danger" })<br />
+        </div>
+        <div class="col-md-4 row">
+            <label for="inputState" class="form-label">Estado Civil</label>
+            @Html.TextBoxFor(d => d.EstadoCivil, new { @class = "form-control", hidden = true, id = "idEstadoCiv" })
+            <select id="inputEstadoCivil" class="form-select">
+                <option selected>Soltero</option>
+                <option>Casado</option>
+                <option>Viudo</option>
+            </select>
+            @Html.ValidationMessageFor(d => d.EstadoCivil, "", new { @class = "text-danger" })<br />
+        </div>
+
+        <div class="col-10 row mt-5">
+            @Html.LabelFor(d => d.GradoAcademico, new { @class = "form-label" })<br />
+
+            @Html.TextBoxFor(d => d.GradoAcademico, new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.GradoAcademico, "", new { @class = "text-danger" })<br />
+        </div>
+        
+        <div class="col-10 row">
+            @Html.LabelFor(d => d.Direccion, new { @class = "form-label" })<br />
+
+            @Html.TextAreaFor(d => d.Direccion, new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.Direccion, "", new { @class = "text-danger" })<br />
+        </div>
+        
+        <div class="col-12">
+            <a class="btn btn-outline-dark" href="@Url.Content("~/Colaborador/Index")">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+
+        </div>
+    </div>
+}
+
+<script>
+
+    document.getElementById("idEstadoCiv").value = "Soltero";
+    var select = document.getElementById('inputEstadoCivil');
+    select.addEventListener('change',
+        function () {
+            var selectedOption = this.options[select.selectedIndex];
+            document.getElementById("idEstadoCiv").value = selectedOption.text;
+        });
+   
+</script>
