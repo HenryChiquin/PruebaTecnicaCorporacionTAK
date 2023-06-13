@@ -304,6 +304,7 @@
     <Content Include="Views\Colaborador\Index.cshtml" />
     <Content Include="Views\Colaborador\Add.cshtml" />
     <Content Include="Views\Colaborador\Update.cshtml" />
+    <Content Include="Views\Colaborador\TokenRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

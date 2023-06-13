@@ -124,7 +124,7 @@ namespace PruebaTecnicaCorporacionTAK.Controllers
             return Redirect(Url.Content("~/Colaborador"));
         }
         
-        [HttpGet]
+        [HttpPost]
         public JsonResult generateWebToken(int Id)
         {
 
@@ -141,8 +141,9 @@ namespace PruebaTecnicaCorporacionTAK.Controllers
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
         }
-        private readonly AppSettings _appSettings;
-        private string GetToken(int Id)
+
+
+        static string GetToken(int Id)
         {
             var model = new ColaboradorViewModel();
             using (var db = new PruebaTecnicaTakDBEntities())
@@ -159,7 +160,7 @@ namespace PruebaTecnicaCorporacionTAK.Controllers
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var llave = Encoding.ASCII.GetBytes(_appSettings.Secreto);
+            var llave = Encoding.ASCII.GetBytes("12381989as19383239s393923293993s93ad9393");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(
@@ -170,7 +171,7 @@ namespace PruebaTecnicaCorporacionTAK.Controllers
                         new Claim(ClaimTypes.Name, model.Apellidos)
                     }
                     ),
-                Expires = DateTime.UtcNow.AddDays(60),
+                Expires = DateTime.UtcNow.AddSeconds(60),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(llave), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

@@ -48,10 +48,12 @@
 
                 let tabButtonDelete = document.createElement("button");
                 let tabButtonEdit = document.createElement("button");
+                let tabButtonToken = document.createElement("button");
 
 
                 tabButtonDelete.innerHTML = "Eliminar";
                 tabButtonEdit.innerHTML = "Editar";
+                tabButtonToken.innerHTML = "Token";
 
                 tabButtonDelete.classList.add('btn');
                 tabButtonDelete.classList.add('btn-danger');
@@ -61,12 +63,15 @@
                 tabButtonEdit.classList.add('btn-outline-primary');
                 tabButtonEdit.classList.add('m-1');
 
+                tabButtonToken.classList.add('btn');
+                tabButtonToken.classList.add('btn-outline-success');
+                tabButtonToken.classList.add('m-1');
+
                 tabButtonEdit.cIdColab = Data[i].IdColaborador;
                 tabButtonEdit.addEventListener("click", function (mibutton) {
                     mibutton.preventDefault();
 
                     jsEditar(mibutton.target.cIdColab);
-                    jswt(mibutton.target.cIdColab);
                 });
 
                 tabButtonDelete.cIdColab = Data[i].IdColaborador;
@@ -75,6 +80,11 @@
                     jsEliminar(mibutton.target.cIdColab);
                 });
 
+                tabButtonToken.cIdColab = Data[i].IdColaborador;
+                tabButtonToken.addEventListener("click", function (mibutton) {
+                    mibutton.preventDefault();
+                    jswt(mibutton.target.cIdColab);
+                });
 
                 let TdId = document.createElement("td");
                 let TdNombre = document.createElement("td");
@@ -88,6 +98,7 @@
                 let TDBtnDelet = document.createElement("td");
                 TDBtnEdit = tabButtonEdit;
                 TDBtnDelet = tabButtonDelete;
+                TDBtnToken = tabButtonToken;
 
                 TR.appendChild(TdId);
                 TR.appendChild(TdNombre);
@@ -97,6 +108,7 @@
                 TR.appendChild(TdDireccion);
                 TR.appendChild(TDBtnDelet);
                 TR.appendChild(TDBtnEdit);
+                TR.appendChild(TDBtnToken);
 
 
 
@@ -136,17 +148,10 @@
 
     function jswt(Id)
     {
+
         urld = "@Url.Content("~/Colaborador/generateWebToken")" + "/" + Id;
         $.post(urld, function (data) {
-            if (data == "1")
-            {
-                console.log(data);
-            }
-            else
-            {
-                alert("Ocurrió un error!!");
-            }
-
+            console.log(data)
         })
     }
 </script>
